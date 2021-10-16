@@ -1,17 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { TimeService } from "../data/services/TimeServices";
-
-const _selectedVideo = {
-  id: 2,
-  title: "olho",
-  duration: 10,
-  url: "https://cdn.videvo.net/videvo_files/video/premium/getty_56/small_watermarked/istock-654264468_preview.webm",
-  cover:
-    "https://images.freeimages.com/images/small-previews/322/indian-heads-1391201.jpg",
-};
+import { videoStore } from "../data/video/VideoContext";
 
 export default function VideoPlayer() {
-  const video = _selectedVideo,
+  const [videoState] = useContext(videoStore),
+    video = videoState.selectedVideo,
     videoRef = useRef(),
     progressTimer = useRef(),
     [isPlaying, setPlay] = useState(false),
