@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { videoStore } from "../data/video/VideoContext";
 
 export default function NewVideoFom() {
-  const [title, setTitle] = useState(""),
+  const [, videoDispatch] = useContext(videoStore),
+    [title, setTitle] = useState(""),
     [duration, setDuration] = useState(""),
     [url, setUrl] = useState(""),
     [cover, setCover] = useState("");
@@ -13,6 +15,7 @@ export default function NewVideoFom() {
       url,
       cover,
     };
+    videoDispatch({ type: "add", value: newVideo });
     reset();
   }
 
@@ -32,21 +35,21 @@ export default function NewVideoFom() {
         onChange={(event) => setTitle(event.target.value)}
       />
 
-      <label>Título:</label>
+      <label>Duração:</label>
       <input
         type="text"
         value={duration}
         onChange={(event) => setDuration(event.target.value)}
       />
 
-      <label>Título:</label>
+      <label>Vídeo:</label>
       <input
         type="text"
         value={url}
         onChange={(event) => setUrl(event.target.value)}
       />
 
-      <label>Título:</label>
+      <label>Capa:</label>
       <input
         type="text"
         value={cover}
