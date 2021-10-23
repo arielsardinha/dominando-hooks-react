@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from "react";
+import { useEffect, useRef, useState, useContext, useMemo } from "react";
 import { TimeService } from "../data/services/TimeServices";
 import { videoStore } from "../data/video/VideoContext";
 
@@ -8,7 +8,8 @@ export default function VideoPlayer() {
     videoRef = useRef(),
     progressTimer = useRef(),
     [isPlaying, setPlay] = useState(false),
-    [progress, setProgress] = useState(0);
+    [progress, setProgress] = useState(0),
+    totalTime = useMemo(() => TimeService.formatTime(video.duration), [video]);
 
   useEffect(() => {
     // ? pega o html video como referencia e adciona os eventos ao mesmo
@@ -68,8 +69,7 @@ export default function VideoPlayer() {
               {isPlaying ? "||" : "|>"}
             </button>
             <span>
-              {TimeService.formatTime(Math.round(progress))} /
-              {TimeService.formatTime(video.duration)}
+              {TimeService.formatTime(Math.round(progress))} /{totalTime}
             </span>
             <input
               type="range"
